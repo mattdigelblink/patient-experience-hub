@@ -33,13 +33,16 @@ const homeNavItem: NavItem = { href: '/', label: 'Home', icon: <Home size={20} /
 const observeNavItems: NavItem[] = [
   { href: '/journey', label: 'Journey Observer', icon: <Eye size={20} /> },
   { href: '/journey/live', label: 'Live Mode', icon: <Radio size={20} /> },
+];
+
+const resourcesNavItems: NavItem[] = [
   { href: '/flowcharts', label: 'Patient Flows', icon: <GitBranch size={20} /> },
 ];
 
 const feedbackNavItems: NavItem[] = [
+  { href: '/feedback/triage', label: 'Triage', icon: <BarChart3 size={20} /> },
   { href: '/feedback', label: 'Feedback Center', icon: <MessageSquareWarning size={20} /> },
-  { href: '/feedback/issues', label: 'Broken Windows', icon: <ListTodo size={20} />, badge: 4 },
-  { href: '/feedback/triage', label: 'Triage Queue', icon: <BarChart3 size={20} /> },
+  { href: '/feedback/issues', label: 'Experience Issues', icon: <ListTodo size={20} />, badge: 4 },
 ];
 
 const adminNavItems: NavItem[] = [
@@ -154,6 +157,9 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
         )}
         {menuConfig.admin.visible && (
           <NavSection title="Admin" items={adminNavItems} />
+        )}
+        {menuConfig.resources.visible && (
+          <NavSection title="Resources" items={resourcesNavItems} />
         )}
       </div>
 

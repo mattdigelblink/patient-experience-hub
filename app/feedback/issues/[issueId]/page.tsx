@@ -21,11 +21,7 @@ import { SEVERITY_CONFIG, STATUS_CONFIG } from '@/types/feedback';
 import type { Severity, IssueStatus } from '@/types/feedback';
 
 export default function IssueDetailPage() {
-  // Show "coming soon" if configured
-  if (menuConfig.feedback.comingSoon) {
-    return <ComingSoon title="Issue Details" description="The Issue Details page is currently under development and will be available soon." />;
-  }
-
+  // All hooks must be called at the top level, before any conditional returns
   const params = useParams();
   const router = useRouter();
   const issueId = params.issueId as string;
@@ -37,6 +33,11 @@ export default function IssueDetailPage() {
   const [selectedSeverity, setSelectedSeverity] = useState<Severity>(issue?.severity || 'sev3');
   const [selectedStatus, setSelectedStatus] = useState<IssueStatus>(issue?.status || 'backlog');
   const [isCreatingJira, setIsCreatingJira] = useState(false);
+
+  // Show "coming soon" if configured (after hooks)
+  if (menuConfig.feedback.comingSoon) {
+    return <ComingSoon title="Issue Details" description="The Issue Details page is currently under development and will be available soon." />;
+  }
 
   if (!issue) {
     return (

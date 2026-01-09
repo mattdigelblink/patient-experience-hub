@@ -59,7 +59,7 @@ export function MermaidDiagram({ diagram, title }: MermaidDiagramProps) {
       setError(`Failed to render: ${err instanceof Error ? err.message : 'Unknown error'}`);
       setIsLoading(false);
     }
-  }, [diagram, retryCount]);
+  }, [diagram]);
 
   useEffect(() => {
     // Small delay to ensure client-side hydration is complete
@@ -68,7 +68,7 @@ export function MermaidDiagram({ diagram, title }: MermaidDiagramProps) {
     }, 100);
 
     return () => clearTimeout(timer);
-  }, [renderDiagram]);
+  }, [renderDiagram, retryCount]);
 
   const handleRetry = () => {
     setRetryCount(c => c + 1);

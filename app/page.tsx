@@ -24,10 +24,52 @@ const platformLabels: Record<Platform, string> = {
   web: 'Web',
 };
 
-const statusLabels: Record<JourneyStatus, string> = {
+// Helper function to get status label
+const getStatusLabel = (status: JourneyStatus): string => {
+  const labels: Partial<Record<JourneyStatus, string>> = {
+    completed: 'Completed',
+    done: 'Done',
+    cancelled: 'Cancelled',
+    closed: 'Closed',
+    new: 'New',
+    discovery: 'Discovery',
+    intake: 'Intake',
+    onboarding: 'Onboarding',
+    escalated: 'Escalated',
+    cost_review: 'Cost Review',
+    rph_review: 'RPH Review',
+    rejected: 'Rejected',
+    transfer: 'Transfer',
+    dispense: 'Dispense',
+    dispense_review: 'Dispense Review',
+    package: 'Package',
+    processed: 'Processed',
+    reprocess: 'Reprocess',
+    on_hold: 'On Hold',
+  };
+  return labels[status] || status.replace(/_/g, ' ');
+};
+
+const statusLabels: Partial<Record<JourneyStatus, string>> = {
   completed: 'Completed',
-  in_progress: 'In Progress',
-  abandoned: 'Abandoned',
+  done: 'Done',
+  cancelled: 'Cancelled',
+  closed: 'Closed',
+  new: 'New',
+  discovery: 'Discovery',
+  intake: 'Intake',
+  onboarding: 'Onboarding',
+  escalated: 'Escalated',
+  cost_review: 'Cost Review',
+  rph_review: 'RPH Review',
+  rejected: 'Rejected',
+  transfer: 'Transfer',
+  dispense: 'Dispense',
+  dispense_review: 'Dispense Review',
+  package: 'Package',
+  processed: 'Processed',
+  reprocess: 'Reprocess',
+  on_hold: 'On Hold',
 };
 
 const feedbackSourceLabels: Record<FeedbackSource, string> = {
@@ -344,7 +386,7 @@ export default function HomePage() {
                               : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                           }`}
                         >
-                          {statusLabels[s]}
+                          {statusLabels[s] || getStatusLabel(s)}
                         </button>
                       ))}
                     </div>
@@ -525,7 +567,7 @@ export default function HomePage() {
                 )}
                 {activeFilters.statuses.length > 0 && (
                   <span className="px-2 py-1 bg-red-50 text-red-700 text-xs rounded-full">
-                    Status: {activeFilters.statuses.map(s => statusLabels[s]).join(', ')}
+                    Status: {activeFilters.statuses.map(s => statusLabels[s] || getStatusLabel(s)).join(', ')}
                   </span>
                 )}
                 {activeFilters.categories.length > 0 && (

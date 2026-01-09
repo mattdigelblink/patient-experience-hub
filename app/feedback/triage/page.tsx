@@ -10,15 +10,16 @@ import { SEVERITY_CONFIG } from '@/types/feedback';
 import type { Severity } from '@/types/feedback';
 
 export default function TriagePage() {
-  // Show "coming soon" if configured
-  if (menuConfig.feedback.comingSoon) {
-    return <ComingSoon title="Triage Queue" description="The Triage Queue is currently under development and will be available soon." />;
-  }
-
+  // All hooks must be called at the top level, before any conditional returns
   const [triageQueue, setTriageQueue] = useState(
     mockIssues.filter((i) => i.status === 'backlog' || i.status === 'triaged').slice(0, 5)
   );
   const [triaged, setTriaged] = useState<string[]>([]);
+
+  // Show "coming soon" if configured (after hooks)
+  if (menuConfig.feedback.comingSoon) {
+    return <ComingSoon title="Triage Queue" description="The Triage Queue is currently under development and will be available soon." />;
+  }
 
   const handleTriage = (issueId: string, severity: Severity) => {
     setTriaged([...triaged, issueId]);

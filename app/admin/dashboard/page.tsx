@@ -76,9 +76,9 @@ export default function AdminDashboard() {
                     </p>
                   </div>
                   <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                    journey.status === 'completed' ? 'bg-green-100 text-green-700' :
-                    journey.status === 'in_progress' ? 'bg-amber-100 text-amber-700' :
-                    'bg-red-100 text-red-700'
+                    journey.status === 'completed' || journey.status === 'done' ? 'bg-green-100 text-green-700' :
+                    journey.status === 'cancelled' || journey.status === 'closed' ? 'bg-red-100 text-red-700' :
+                    'bg-amber-100 text-amber-700'
                   }`}>
                     {journey.status.replace('_', ' ')}
                   </span>

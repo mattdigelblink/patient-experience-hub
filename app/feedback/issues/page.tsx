@@ -12,11 +12,7 @@ const severityOptions: Severity[] = ['sev1', 'sev2', 'sev3', 'sev4', 'sev5'];
 const statusOptions: IssueStatus[] = ['backlog', 'triaged', 'assigned', 'in_progress', 'shipped', 'verified_solved'];
 
 export default function IssuesListPage() {
-  // Show "coming soon" if configured
-  if (menuConfig.feedback.comingSoon) {
-    return <ComingSoon title="Broken Windows" description="The Broken Windows page is currently under development and will be available soon." />;
-  }
-
+  // All hooks must be called at the top level, before any conditional returns
   const router = useRouter();
   const [search, setSearch] = useState('');
   const [selectedSeverities, setSelectedSeverities] = useState<Severity[]>([]);
@@ -45,6 +41,11 @@ export default function IssuesListPage() {
       return true;
     });
   }, [search, selectedSeverities, selectedStatuses]);
+
+  // Show "coming soon" if configured (after hooks)
+  if (menuConfig.feedback.comingSoon) {
+    return <ComingSoon title="Broken Windows" description="The Broken Windows page is currently under development and will be available soon." />;
+  }
 
   const activeFilterCount = selectedSeverities.length + selectedStatuses.length;
 

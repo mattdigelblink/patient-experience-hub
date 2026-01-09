@@ -12,6 +12,7 @@ export interface MenuSectionConfig {
 
 export interface MenuConfig {
   observe: MenuSectionConfig;
+  resources: MenuSectionConfig;
   feedback: MenuSectionConfig;
   admin: MenuSectionConfig;
 }
@@ -23,6 +24,10 @@ export interface MenuConfig {
  */
 export const menuConfig: MenuConfig = {
   observe: {
+    visible: true,
+    comingSoon: false,
+  },
+  resources: {
     visible: true,
     comingSoon: false,
   },
