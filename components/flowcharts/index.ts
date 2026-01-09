@@ -1,0 +1,2 @@
+export { MermaidDiagram } from './MermaidDiagram';
+
