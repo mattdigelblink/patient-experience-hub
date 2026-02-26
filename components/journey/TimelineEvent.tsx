@@ -46,6 +46,48 @@ import {
   isPriorAuthActivityContent,
 } from '@/types/journey';
 
+// Employee list for @ mentions
+const EMPLOYEES = [
+  { name: 'Debapriyo Ganguly', location: 'Office', isOrganizer: true },
+  { name: 'Abhijit Pati', location: 'Office' },
+  { name: 'Abhishek Shah', location: 'Office' },
+  { name: 'Aravindan Gunathilagaraj', location: 'Office' },
+  { name: 'John Matthew', location: 'Office' },
+  { name: 'Manikandan Varadaraj', location: 'Office' },
+  { name: 'Dharmik Ghelani', location: 'Home' },
+  { name: 'Dinesh Makhija', location: 'Home' },
+  { name: 'Drew Holland', location: 'Home' },
+  { name: 'Felix Chan', location: 'Home' },
+  { name: 'Ganeshan Jayaraman', location: 'Home' },
+  { name: 'Jason Carlisle', location: 'Home' },
+  { name: 'Jeff Harmon', location: 'Home' },
+  { name: 'Jordan Tom', location: 'Home' },
+  { name: 'Krishna Krishnamurthy', location: 'Home' },
+  { name: 'Naveen Nattala', location: 'Home' },
+  { name: 'Naveenan Arjunan', location: 'Home' },
+  { name: 'Owais Khan', location: 'Home' },
+  { name: 'Prasanna Begamudra Rangavittal', location: 'Home' },
+  { name: 'Selvam Velmurugan', location: 'Home' },
+  { name: 'Suryaveer Singh', location: 'Home' },
+  { name: 'Tricia Bailey', location: 'Home' },
+  { name: 'Vishal Prabhukhanolkar', location: 'Home' },
+  { name: 'Rhoda Rahaii', location: 'Home/NYC' },
+  { name: 'Naresh Moorthy', location: 'San Jose, CA' },
+  { name: 'Yulee Jun', location: '' },
+  { name: 'Christopher Loh', location: '' },
+  { name: 'David Lee', location: '' },
+  { name: 'Deepashree Mohan', location: '' },
+  { name: 'Derrick Pace', location: '' },
+  { name: 'Francisco Muñoz', location: '' },
+  { name: 'Hema Balachandran', location: '' },
+  { name: 'Jacqueline Rupert', location: '' },
+  { name: 'Khushru Irani', location: '' },
+  { name: 'Kurban Slonim', location: '' },
+  { name: 'Matthew Digel', location: '' },
+  { name: 'Miriam Prathiba', location: '' },
+  { name: 'Rahul Raheja', location: '' },
+];
+
 // Flag Issue Popover Component
 interface FlagIssuePopoverProps {
   isOpen: boolean;
@@ -217,7 +259,7 @@ function FlagIssuePopover({ isOpen, onClose }: FlagIssuePopoverProps) {
               <button
                 onClick={handleLinkToIssue}
                 disabled={!selectedIssue || isSubmitting}
-                className="w-full py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="w-full py-2 bg-teal-600 text-white text-sm font-medium rounded-lg hover:bg-teal-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 {isSubmitting ? 'Linking...' : 'Link to Issue'}
               </button>
@@ -304,17 +346,17 @@ function FlagIssuePopover({ isOpen, onClose }: FlagIssuePopoverProps) {
 }
 
 const eventTypeConfig: Record<EventType, { icon: React.ReactNode; label: string; color: string }> = {
-  sms: { icon: <MessageSquare size={16} />, label: 'SMS', color: 'bg-yellow-50 text-yellow-600 border-2 border-yellow-300' },
-  email: { icon: <Mail size={16} />, label: 'Email', color: 'bg-yellow-50 text-yellow-600 border-2 border-yellow-300' },
-  voice_broadcast: { icon: <Volume2 size={16} />, label: 'Voice Broadcast', color: 'bg-yellow-50 text-yellow-600 border-2 border-yellow-300' },
-  call: { icon: <Phone size={16} />, label: 'Phone Call', color: 'bg-yellow-50 text-yellow-600 border-2 border-yellow-300' },
-  chat: { icon: <MessageSquare size={16} />, label: 'Chat', color: 'bg-yellow-50 text-yellow-600 border-2 border-yellow-300' },
+  sms: { icon: <MessageSquare size={16} />, label: 'SMS', color: 'bg-orange-50 text-orange-600 border-2 border-orange-300' },
+  email: { icon: <Mail size={16} />, label: 'Email', color: 'bg-orange-50 text-orange-600 border-2 border-orange-300' },
+  voice_broadcast: { icon: <Volume2 size={16} />, label: 'Voice Broadcast', color: 'bg-orange-50 text-orange-600 border-2 border-orange-300' },
+  call: { icon: <Phone size={16} />, label: 'Phone Call', color: 'bg-orange-50 text-orange-600 border-2 border-orange-300' },
+  chat: { icon: <MessageSquare size={16} />, label: 'Chat', color: 'bg-orange-50 text-orange-600 border-2 border-orange-300' },
   screen_view: { icon: <Monitor size={16} />, label: 'Digital Event', color: 'bg-slate-100 text-slate-600' },
-  survey: { icon: <Star size={16} />, label: 'Survey', color: 'bg-yellow-50 text-yellow-600 border-2 border-yellow-300' },
+  survey: { icon: <Star size={16} />, label: 'Survey', color: 'bg-orange-50 text-orange-600 border-2 border-orange-300' },
   system_log: { icon: <AlertTriangle size={16} />, label: 'System Log', color: 'bg-red-50 text-red-600 border-2 border-red-300' },
   mixpanel_event: { icon: <Activity size={16} />, label: 'Digital Event', color: 'bg-slate-100 text-slate-600' },
-  rxos_activity: { icon: <Server size={16} />, label: 'RxOS Activity', color: 'bg-purple-50 text-purple-600 border-2 border-purple-300' },
-  prior_auth_activity: { icon: <ShieldCheck size={16} />, label: 'Prior Auth', color: 'bg-blue-50 text-blue-600 border-2 border-blue-300' },
+  rxos_activity: { icon: <Server size={16} />, label: 'RxOS Activity', color: 'bg-teal-50 text-teal-600 border-2 border-teal-300' },
+  prior_auth_activity: { icon: <ShieldCheck size={16} />, label: 'Prior Auth', color: 'bg-teal-50 text-teal-600 border-2 border-teal-300' },
 };
 
 interface TimelineEventProps {
@@ -322,17 +364,32 @@ interface TimelineEventProps {
   isLast?: boolean;
   medication?: string;
   orderId?: string;
+  commentCount?: number;
+  onOpenComments?: () => void;
 }
 
-export function TimelineEvent({ event, isLast = false, medication, orderId }: TimelineEventProps) {
+export function TimelineEvent({ event, isLast = false, medication, orderId, commentCount = 0, onOpenComments }: TimelineEventProps) {
   const [expanded, setExpanded] = useState(false);
   const [showFlagPopover, setShowFlagPopover] = useState(false);
+  const [showCopiedTooltip, setShowCopiedTooltip] = useState(false);
   const config = eventTypeConfig[event.type];
   const hasError = event.errorIndicators && event.errorIndicators.length > 0;
 
   const formatTime = (timestamp: string) => {
     const date = new Date(timestamp);
     return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+  };
+
+  const handleCopyLink = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const url = `${window.location.origin}${window.location.pathname}?eventId=${event.id}`;
+    try {
+      await navigator.clipboard.writeText(url);
+      setShowCopiedTooltip(true);
+      setTimeout(() => setShowCopiedTooltip(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy link:', err);
+    }
   };
 
   const formatDate = (timestamp: string) => {
@@ -375,14 +432,13 @@ export function TimelineEvent({ event, isLast = false, medication, orderId }: Ti
             /* Inbound - Patient sent */
             <div className="flex flex-col items-end">
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-xs font-medium" style={{ color: '#007AFF' }}>Patient</span>
+                <span className="text-xs font-medium text-teal-600">Patient</span>
                 {content.phoneNumber && (
-                  <span className="text-xs" style={{ color: '#007AFF', opacity: 0.7 }}>{content.phoneNumber}</span>
+                  <span className="text-xs text-teal-600 opacity-70">{content.phoneNumber}</span>
                 )}
               </div>
-              <div 
-                className="max-w-[85%] py-2.5 px-3 rounded-2xl text-sm text-white"
-                style={{ backgroundColor: '#007AFF' }}
+              <div
+                className="max-w-[85%] py-2.5 px-3 rounded-2xl text-sm text-white bg-teal-500"
               >
                 {content.body}
               </div>
@@ -415,10 +471,10 @@ export function TimelineEvent({ event, isLast = false, medication, orderId }: Ti
             </div>
           ) : (
             <div className="flex items-center gap-2">
-              <div className="flex items-center justify-center w-6 h-6 rounded-full" style={{ backgroundColor: '#007AFF' }}>
+              <div className="flex items-center justify-center w-6 h-6 rounded-full bg-teal-500">
                 <User size={14} className="text-white" />
               </div>
-              <span className="text-xs font-semibold" style={{ color: '#007AFF' }}>Patient</span>
+              <span className="text-xs font-semibold text-teal-600">Patient</span>
               {content.from && (
                 <span className="text-xs text-slate-400">{content.from}</span>
               )}
@@ -510,17 +566,17 @@ export function TimelineEvent({ event, isLast = false, medication, orderId }: Ti
               </div>
               <span className="text-xs font-semibold text-red-600">BlinkRx</span>
               <span className="text-xs text-slate-400">→</span>
-              <div className="flex items-center justify-center w-5 h-5 rounded-full" style={{ backgroundColor: '#007AFF' }}>
+              <div className="flex items-center justify-center w-5 h-5 rounded-full bg-teal-500">
                 <User size={12} className="text-white" />
               </div>
-              <span className="text-xs font-semibold" style={{ color: '#007AFF' }}>Patient</span>
+              <span className="text-xs font-semibold text-teal-600">Patient</span>
             </div>
           ) : (
             <div className="flex items-center gap-2">
-              <div className="flex items-center justify-center w-6 h-6 rounded-full" style={{ backgroundColor: '#007AFF' }}>
+              <div className="flex items-center justify-center w-6 h-6 rounded-full bg-teal-500">
                 <User size={14} className="text-white" />
               </div>
-              <span className="text-xs font-semibold" style={{ color: '#007AFF' }}>Patient</span>
+              <span className="text-xs font-semibold text-teal-600">Patient</span>
               <span className="text-xs text-slate-400">→</span>
               <div className="flex items-center justify-center w-5 h-5 bg-white rounded-full shadow border">
                 <Image
@@ -610,13 +666,13 @@ export function TimelineEvent({ event, isLast = false, medication, orderId }: Ti
                     const text = line.replace(/^patient:\s*/i, '');
                     return (
                       <div key={idx} className="flex gap-2">
-                        <div className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center" style={{ backgroundColor: '#007AFF' }}>
+                        <div className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center bg-teal-500">
                           <User size={14} className="text-white" />
                         </div>
                         <div className="flex-1 p-2 rounded-lg bg-blue-50 border border-blue-100">
                           <div className="flex items-center justify-between mb-0.5">
                             <div className="flex items-center gap-2">
-                              <p className="text-xs font-semibold" style={{ color: '#007AFF' }}>Patient</p>
+                              <p className="text-xs font-semibold text-teal-600">Patient</p>
                               <span className="text-xs text-slate-400">{timestamp}</span>
                             </div>
                             <div className="relative group">
@@ -683,7 +739,7 @@ export function TimelineEvent({ event, isLast = false, medication, orderId }: Ti
                 <div key={msg.id} className={`flex gap-2 ${isPatient ? 'flex-row-reverse' : ''}`}>
                   {/* Avatar */}
                   {isPatient ? (
-                    <div className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center" style={{ backgroundColor: '#007AFF' }}>
+                    <div className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center bg-teal-500">
                       <User size={14} className="text-white" />
                     </div>
                   ) : isAgent ? (
@@ -697,26 +753,26 @@ export function TimelineEvent({ event, isLast = false, medication, orderId }: Ti
                       />
                     </div>
                   ) : (
-                    <div className="flex-shrink-0 w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center">
+                    <div className="flex-shrink-0 w-6 h-6 bg-teal-500 rounded-full flex items-center justify-center">
                       <Activity size={12} className="text-white" />
                     </div>
                   )}
-                  
+
                   {/* Message bubble */}
                   <div className={`flex-1 max-w-[80%] p-2 rounded-lg border ${
-                    isPatient 
-                      ? 'bg-blue-50 border-blue-100' 
-                      : isAgent 
-                        ? 'bg-red-50 border-red-100' 
-                        : 'bg-purple-50 border-purple-100'
+                    isPatient
+                      ? 'bg-teal-50 border-teal-100'
+                      : isAgent
+                        ? 'bg-red-50 border-red-100'
+                        : 'bg-teal-50 border-teal-100'
                   }`}>
                     <div className="flex items-center justify-between mb-0.5">
                       <p className={`text-xs font-semibold ${
-                        isPatient 
-                          ? 'text-blue-600' 
-                          : isAgent 
-                            ? 'text-red-600' 
-                            : 'text-purple-600'
+                        isPatient
+                          ? 'text-teal-600'
+                          : isAgent
+                            ? 'text-red-600'
+                            : 'text-teal-600'
                       }`}>
                         {isPatient ? 'Patient' : isBot ? 'Bot' : msg.senderName || 'Agent'}
                       </p>
@@ -955,7 +1011,7 @@ export function TimelineEvent({ event, isLast = false, medication, orderId }: Ti
           >
             <div className="flex-1">
               <div className="flex items-center gap-2">
-                <span className="text-xs font-bold text-purple-600 uppercase">
+                <span className="text-xs font-bold text-teal-600 uppercase">
                   {activityTypeLabels[content.activityType] || content.activityType}
                 </span>
                 {content.actor && (
@@ -968,12 +1024,12 @@ export function TimelineEvent({ event, isLast = false, medication, orderId }: Ti
               <ChevronDown size={14} className={`text-slate-400 transition-transform ${expanded ? 'rotate-180' : ''}`} />
             )}
           </div>
-          
+
           {/* Order/Prescription ID badges */}
           {(content.orderId || content.prescriptionId) && (
             <div className="flex gap-2">
               {content.orderId && (
-                <span className="text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded font-mono">
+                <span className="text-xs bg-teal-100 text-teal-700 px-2 py-0.5 rounded font-mono">
                   {content.orderId}
                 </span>
               )}
@@ -987,11 +1043,11 @@ export function TimelineEvent({ event, isLast = false, medication, orderId }: Ti
 
           {/* Expanded details */}
           {expanded && hasDetails && (
-            <div className="p-2 bg-purple-50 rounded border border-purple-100 text-xs">
+            <div className="p-2 bg-teal-50 rounded border border-teal-100 text-xs">
               <div className="space-y-0.5">
                 {Object.entries(content.details!).map(([key, value]) => (
                   <div key={key} className="flex gap-3 py-0.5">
-                    <span className="text-purple-600 min-w-[80px]">{key}</span>
+                    <span className="text-teal-600 min-w-[80px]">{key}</span>
                     <span className="text-slate-700 font-mono">{String(value)}</span>
                   </div>
                 ))}
@@ -1017,26 +1073,26 @@ export function TimelineEvent({ event, isLast = false, medication, orderId }: Ti
       };
 
       const statusColors: Record<string, string> = {
-        pa_approved: 'text-green-600',
-        pa_appeal_approved: 'text-green-600',
+        pa_approved: 'text-teal-600',
+        pa_appeal_approved: 'text-teal-600',
         pa_denied: 'text-red-600',
         pa_appeal_denied: 'text-red-600',
         pa_expired: 'text-red-600',
-        pa_pending_review: 'text-amber-600',
-        pa_additional_info_requested: 'text-amber-600',
+        pa_pending_review: 'text-orange-600',
+        pa_additional_info_requested: 'text-orange-600',
       };
 
       const hasDetails = content.details && Object.keys(content.details).length > 0;
 
       return (
         <div className="space-y-2">
-          <div 
+          <div
             className={`flex items-center justify-between ${hasDetails ? 'cursor-pointer' : ''}`}
             onClick={() => hasDetails && setExpanded(!expanded)}
           >
             <div className="flex-1">
               <div className="flex items-center gap-2">
-                <span className={`text-xs font-bold uppercase ${statusColors[content.activityType] || 'text-blue-600'}`}>
+                <span className={`text-xs font-bold uppercase ${statusColors[content.activityType] || 'text-teal-600'}`}>
                   {activityTypeLabels[content.activityType] || content.activityType}
                 </span>
                 {content.insurerName && (
@@ -1052,11 +1108,11 @@ export function TimelineEvent({ event, isLast = false, medication, orderId }: Ti
               <ChevronDown size={14} className={`text-slate-400 transition-transform ${expanded ? 'rotate-180' : ''}`} />
             )}
           </div>
-          
+
           {/* PA Number badge */}
           {content.paNumber && (
             <div className="flex gap-2">
-              <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded font-mono">
+              <span className="text-xs bg-teal-100 text-teal-700 px-2 py-0.5 rounded font-mono">
                 PA# {content.paNumber}
               </span>
               {content.expirationDate && (
@@ -1069,11 +1125,11 @@ export function TimelineEvent({ event, isLast = false, medication, orderId }: Ti
 
           {/* Expanded details */}
           {expanded && hasDetails && (
-            <div className="p-2 bg-blue-50 rounded border border-blue-100 text-xs">
+            <div className="p-2 bg-teal-50 rounded border border-teal-100 text-xs">
               <div className="space-y-0.5">
                 {Object.entries(content.details!).map(([key, value]) => (
                   <div key={key} className="flex gap-3 py-0.5">
-                    <span className="text-blue-600 min-w-[80px]">{key}</span>
+                    <span className="text-teal-600 min-w-[80px]">{key}</span>
                     <span className="text-slate-700 font-mono">{String(value)}</span>
                   </div>
                 ))}
@@ -1111,7 +1167,7 @@ export function TimelineEvent({ event, isLast = false, medication, orderId }: Ti
       : event.metadata.sessionId;
 
     return (
-      <div className="relative flex items-start gap-3 group pb-4">
+      <div className="relative flex items-start gap-3 group pb-4" data-event-id={event.id}>
         {/* Time on the left */}
         <div className="flex-shrink-0 w-16 text-right pt-2.5">
           <p className="text-xs text-slate-500 font-medium">{formatTime(event.timestamp)}</p>
@@ -1124,10 +1180,10 @@ export function TimelineEvent({ event, isLast = false, medication, orderId }: Ti
         )}
         
         {/* Icon - same size as standard events for alignment */}
-        <div className="flex-shrink-0 w-10 h-10 rounded-full z-10 bg-yellow-50 border-2 border-yellow-300 flex items-center justify-center">
-          {isScreenViewContent(event.content) 
-            ? <Monitor size={16} className="text-yellow-600" />
-            : <Activity size={16} className="text-yellow-600" />
+        <div className="flex-shrink-0 w-10 h-10 rounded-full z-10 bg-slate-100 border-2 border-slate-300 flex items-center justify-center">
+          {isScreenViewContent(event.content)
+            ? <Monitor size={16} className="text-slate-600" />
+            : <Activity size={16} className="text-slate-600" />
           }
         </div>
 
@@ -1143,7 +1199,7 @@ export function TimelineEvent({ event, isLast = false, medication, orderId }: Ti
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    className="flex items-center gap-1 px-1.5 py-0.5 bg-purple-100 text-purple-700 rounded text-xs font-medium hover:bg-purple-200 transition-colors"
+                    className="flex items-center gap-1 px-1.5 py-0.5 bg-teal-100 text-teal-700 rounded text-xs font-medium hover:bg-teal-200 transition-colors"
                   >
                     <Play size={10} />
                     <ExternalLink size={10} />
@@ -1163,6 +1219,40 @@ export function TimelineEvent({ event, isLast = false, medication, orderId }: Ti
               )}
             </div>
             <div className="flex items-center gap-2">
+              {/* Copy Link button */}
+              <div className="relative">
+                <button
+                  onClick={handleCopyLink}
+                  className="p-1 rounded hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors opacity-0 group-hover:opacity-100"
+                  title="Copy link to event"
+                >
+                  <Link2 size={12} />
+                </button>
+                {showCopiedTooltip && (
+                  <div className="absolute z-20 bottom-full left-1/2 -translate-x-1/2 mb-1.5 px-2 py-1 bg-slate-800 text-white text-xs rounded shadow-lg whitespace-nowrap">
+                    Link copied!
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-800" />
+                  </div>
+                )}
+              </div>
+              {/* Comment button */}
+              {onOpenComments && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (onOpenComments) onOpenComments();
+                  }}
+                  className="relative p-1 rounded hover:bg-teal-100 text-slate-400 hover:text-teal-600 transition-colors opacity-0 group-hover:opacity-100"
+                  title="View comments"
+                >
+                  <MessageSquare size={12} />
+                  {commentCount > 0 && (
+                    <span className="absolute -top-1 -right-1 w-4 h-4 bg-teal-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                      {commentCount > 9 ? '9+' : commentCount}
+                    </span>
+                  )}
+                </button>
+              )}
               {/* Flag button */}
               <div className="relative">
                 <button
@@ -1210,7 +1300,7 @@ export function TimelineEvent({ event, isLast = false, medication, orderId }: Ti
 
   // Standard card rendering for other event types
   return (
-    <div className="timeline-event relative flex gap-3 pb-4">
+    <div className="timeline-event relative flex gap-3 pb-4" data-event-id={event.id}>
       {/* Time on the left */}
       <div className="flex-shrink-0 w-16 text-right pt-1">
         <p className="text-xs text-slate-500 font-medium">{formatTime(event.timestamp)}</p>
@@ -1239,13 +1329,50 @@ export function TimelineEvent({ event, isLast = false, medication, orderId }: Ti
               )}
             </div>
             <div className="flex items-center gap-3">
+              {/* Copy Link button */}
+              <div className="relative">
+                <button
+                  onClick={handleCopyLink}
+                  className="p-1.5 rounded-lg border transition-colors border-slate-200 text-slate-400 hover:bg-slate-50 hover:border-slate-300 hover:text-slate-600"
+                  title="Copy link to event"
+                >
+                  <Link2 size={14} />
+                </button>
+                {showCopiedTooltip && (
+                  <div className="absolute z-20 bottom-full left-1/2 -translate-x-1/2 mb-1.5 px-2 py-1 bg-slate-800 text-white text-xs rounded shadow-lg whitespace-nowrap">
+                    Link copied!
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-800" />
+                  </div>
+                )}
+              </div>
+              {/* Comment button */}
+              {onOpenComments && (
+                <button
+                  onClick={() => {
+                    if (onOpenComments) onOpenComments();
+                  }}
+                  className={`relative p-1.5 rounded-lg border transition-colors ${
+                    commentCount > 0
+                      ? 'bg-teal-50 border-teal-200 text-teal-600'
+                      : 'border-slate-200 text-slate-400 hover:bg-teal-50 hover:border-teal-200 hover:text-teal-500'
+                  }`}
+                  title="View comments"
+                >
+                  <MessageSquare size={14} />
+                  {commentCount > 0 && (
+                    <span className="absolute -top-1 -right-1 w-4 h-4 bg-teal-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                      {commentCount > 9 ? '9+' : commentCount}
+                    </span>
+                  )}
+                </button>
+              )}
               {/* Flag button */}
               <div className="relative">
                 <button
                   onClick={() => setShowFlagPopover(!showFlagPopover)}
                   className={`p-1.5 rounded-lg border transition-colors ${
-                    showFlagPopover 
-                      ? 'bg-orange-100 border-orange-300 text-orange-600' 
+                    showFlagPopover
+                      ? 'bg-orange-100 border-orange-300 text-orange-600'
                       : 'border-slate-200 text-slate-400 hover:bg-orange-50 hover:border-orange-200 hover:text-orange-500'
                   }`}
                   title="Flag issue"

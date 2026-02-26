@@ -1,11 +1,20 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Roboto, Roboto_Condensed } from "next/font/google";
 import "./globals.css";
-import { AppShell } from "@/components/layout";
+import { Providers } from "./providers";
 
-const inter = Inter({ 
+const roboto = Roboto({
+  weight: ['300', '400', '500', '700'],
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-roboto",
+  display: 'swap',
+});
+
+const robotoCondensed = Roboto_Condensed({
+  weight: ['300', '400', '700'],
+  subsets: ["latin"],
+  variable: "--font-roboto-condensed",
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -20,8 +29,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} font-sans`}>
-        <AppShell>{children}</AppShell>
+      <body className={`${roboto.variable} ${robotoCondensed.variable} font-sans`}>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

@@ -13,7 +13,8 @@ const config: Config = {
         foreground: "var(--foreground)",
       },
       fontFamily: {
-        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-roboto)', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+        condensed: ['var(--font-roboto-condensed)', 'Roboto Condensed', 'sans-serif'],
       },
       animation: {
         'slide-in': 'slide-in 0.3s ease-out',

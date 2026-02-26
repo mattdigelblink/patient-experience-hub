@@ -51,6 +51,7 @@ export interface FeedbackItemMetadata {
   appVersion?: string;
   state?: string;
   journeyId?: string; // Link to Journey Observation Tool
+  program?: string; // Program name (only for surveys, calls, etc - not public reviews)
 }
 
 export interface FeedbackItem {
@@ -64,6 +65,7 @@ export interface FeedbackItem {
   issueId?: string; // Grouped issue
   isProcessed: boolean;
   agentId?: string; // For agent-flagged items
+  assignedSTL?: string; // Assigned STL (Service Team Lead)
 }
 
 // ============================================

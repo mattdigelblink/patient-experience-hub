@@ -33,7 +33,7 @@ export const menuConfig: MenuConfig = {
   },
   feedback: {
     visible: true,
-    comingSoon: true, // Show "coming soon" for all feedback pages
+    comingSoon: false,
   },
   admin: {
     visible: false, // Hide admin section entirely

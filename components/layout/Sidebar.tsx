@@ -6,16 +6,16 @@ import { usePathname } from 'next/navigation';
 import {
   Home,
   Eye,
-  Radio,
   MessageSquareWarning,
-  ListTodo,
-  BarChart3,
+  MessageSquare,
   Users,
   Settings,
   ChevronLeft,
   ChevronRight,
-  GitBranch,
   LayoutDashboard,
+  AlertTriangle,
+  BarChart3,
+  Search,
 } from 'lucide-react';
 import clsx from 'clsx';
 import { menuConfig } from '@/config/menu';
@@ -31,18 +31,13 @@ interface NavItem {
 const homeNavItem: NavItem = { href: '/', label: 'Home', icon: <Home size={20} /> };
 
 const observeNavItems: NavItem[] = [
-  { href: '/journey', label: 'Journey Observer', icon: <Eye size={20} /> },
-  { href: '/journey/live', label: 'Live Mode', icon: <Radio size={20} /> },
-];
-
-const resourcesNavItems: NavItem[] = [
-  { href: '/flowcharts', label: 'Patient Flows', icon: <GitBranch size={20} /> },
+  { href: '/journey/search', label: 'Search Patient Journeys', icon: <Eye size={20} /> },
+  { href: '/reporting', label: 'Reporting', icon: <BarChart3 size={20} /> },
 ];
 
 const feedbackNavItems: NavItem[] = [
-  { href: '/feedback/triage', label: 'Triage', icon: <BarChart3 size={20} /> },
-  { href: '/feedback', label: 'Feedback Center', icon: <MessageSquareWarning size={20} /> },
-  { href: '/feedback/issues', label: 'Experience Issues', icon: <ListTodo size={20} />, badge: 4 },
+  { href: '/feedback/search', label: 'Search Feedback', icon: <Search size={20} /> },
+  { href: '/feedback/triage', label: 'Triage Feedback', icon: <MessageSquare size={20} /> },
 ];
 
 const adminNavItems: NavItem[] = [
@@ -88,9 +83,9 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
     );
   };
 
-  const NavSection = ({ title, items }: { title: string; items: NavItem[] }) => (
+  const NavSection = ({ title, items }: { title?: string; items: NavItem[] }) => (
     <div className="mb-6">
-      {!collapsed && (
+      {!collapsed && title && (
         <h3 className="px-3 mb-2 text-xs font-semibold text-slate-400 uppercase tracking-wider">
           {title}
         </h3>
@@ -113,7 +108,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
       {/* Logo */}
       <div className="h-16 flex items-center justify-between px-4 border-b border-slate-200">
         {!collapsed && (
-          <div className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity">
             <div className="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center">
               <Eye size={18} className="text-white" />
             </div>
@@ -121,12 +116,14 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
               <span className="font-bold text-slate-800 text-sm leading-tight">PX HUB</span>
               <span className="text-[10px] text-slate-400 leading-tight">Patient Experience</span>
             </div>
-          </div>
+          </Link>
         )}
         {collapsed && (
-          <div className="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center mx-auto">
-            <Eye size={18} className="text-white" />
-          </div>
+          <Link href="/" className="cursor-pointer hover:opacity-80 transition-opacity">
+            <div className="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center mx-auto">
+              <Eye size={18} className="text-white" />
+            </div>
+          </Link>
         )}
         <button
           onClick={onToggle}
@@ -150,16 +147,13 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
         <div className="border-t border-slate-200 mb-6" />
 
         {menuConfig.observe.visible && (
-          <NavSection title="Observe" items={observeNavItems} />
+          <NavSection items={observeNavItems} />
         )}
         {menuConfig.feedback.visible && (
-          <NavSection title="Feedback" items={feedbackNavItems} />
+          <NavSection title="Patient Feedback" items={feedbackNavItems} />
         )}
         {menuConfig.admin.visible && (
           <NavSection title="Admin" items={adminNavItems} />
-        )}
-        {menuConfig.resources.visible && (
-          <NavSection title="Resources" items={resourcesNavItems} />
         )}
       </div>
 

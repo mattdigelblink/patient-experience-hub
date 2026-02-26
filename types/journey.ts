@@ -268,6 +268,8 @@ export interface PatientInfo {
   patientId: string; // e.g., "4199227"
   accountId?: string; // e.g., "5772527186755116219" - only exists after account creation
   dob: string; // ISO date string
+  gender?: 'M' | 'F' | 'Other'; // Patient gender
+  phoneNumber?: string; // Patient phone number
   initialRxReceivedDate: string; // ISO date string
   totalFillsPurchased: number;
   medications: string[]; // All meds the patient has taken

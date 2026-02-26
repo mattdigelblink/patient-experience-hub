@@ -1,0 +1,7 @@
+- Allow filtering on SLA breaches... improve/add more filtering capabilities. 
+- SHould we hide PHI? same as RxOS or not. 
+- Annymous feedback submission... incentivize!! Ask Miriam... reimbursement of copays. 
+- Allow employees to click through a staging in
+- How can we use an Ai Agent to find POOR journey's?? Full time, QA team looks at the journeys AI agent flags. 
+- Let's have a conversation about requiring employee's to review journey's. 
+- Loop in Selvam when we discuss archiecture... 
